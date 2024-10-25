@@ -1,10 +1,9 @@
-version: '3.8'  # Ensure the version supports the platform setting
+version: '3.8'
 
 services:
   rag_ai:
     build:
       context: .
-      # platform should be placed at the top level in Docker Compose v3.8 and above
     platform: linux/amd64
     ports:
       - "8501:8501"

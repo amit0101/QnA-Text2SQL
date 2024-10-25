@@ -37,8 +37,8 @@ if not os.listdir(persist_directory):
     print(f"The directory {persist_directory} is empty. Ingesting data...")
     # Initialize Chroma DB if directory is empty
     persistent_client = chromadb.PersistentClient()
-    collection = persistent_client.get_or_create_collection("personal_data")
-    db = Chroma(collection_name="personal_data", persist_directory=persist_directory,
+    collection = persistent_client.get_or_create_collection("Text2SQL_Papers")
+    db = Chroma(collection_name="Text2SQL_Papers", persist_directory=persist_directory,
                 embedding_function=embeddings)
 
     # Ingest data into the DB
@@ -46,7 +46,7 @@ if not os.listdir(persist_directory):
 else:
     print(f"The directory {persist_directory} is not empty. Loading existing data...")
     # Initialize Chroma DB using existing data
-    db = Chroma(collection_name="personal_data", persist_directory=persist_directory,
+    db = Chroma(collection_name="Text2SQL_Papers", persist_directory=persist_directory,
                 embedding_function=embeddings)
 
 # Check collection count
@@ -78,11 +78,11 @@ history_aware_retriever = create_history_aware_retriever(
 
 ### Answer question ###
 system_prompt = (
-    "You are an assistant for question-answering tasks. "
-    "Use the following pieces of retrieved context to answer "
+    "You are an assistant for question-answering tasks on 4 Text2SQL research papers. "
+    "Use the following pieces of retrieved context from these papers to answer "
     "the question. If you don't know the answer, say that you "
     "don't know. Use three sentences maximum and keep the "
-    "answer concise."
+    "answer concise unless asked otherwise."
     "\n\n"
     "{context}"
 )

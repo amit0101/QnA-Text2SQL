@@ -14,4 +14,5 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-CMD ["sh", "-c", "python model/data_ingestion.py && streamlit run app.py"]
+EXPOSE 8501
+ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
