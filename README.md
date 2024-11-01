@@ -4,17 +4,53 @@
 
 Clone this repo
 
-`git clone https://github.com/amit0101/QnA-Text2SQL.git`
+```sh
+git clone https://github.com/amit0101/QnA-Text2SQL.git
+```
 
 Change to main directory
 
-`cd QnA-Text2SQL`
+```sh
+cd QnA-Text2SQL
+```
 
 Add your OpenAI API key to .env file
-`OPENAI_API_KEY=""`
+`OPENAI_API_KEY="YOUR_KEY"`
+
+##### For FastAPI server
 
 Run docker build
-`docker-compose up --build`
+```sh
+docker-compose up --build
+```
+
+Open a new terminal
+
+Start a chat with
+```sh
+curl -X POST http://localhost:8000/start_new_conversation
+```
+which provides a `session_id`
+
+Ask a question with
+```sh
+curl -X POST http://localhost:8000/ask_question -H "Content-Type: application/json" -d '{"question": "What is Text2SQL?", "session_id": "YOUR_SESSION_ID"}'
+```
+
+(Starting a new chat clears existing session)
+
+##### For Streamlit interface
+
+In Dockerfile, comment out the command to run Streamlit
+
+```sh
+CMD ["sh", "-c", "streamlit run app.py --server.port=8501 --server.address=0.0.0.0"]
+```
+
+Run docker build
+```sh
+docker-compose up --build
+```
 
 Access the Streamlit app at https://localhost:8501
 
@@ -29,7 +65,7 @@ NOTE: The PDF files have already been indexed and stored into the ChromaDB objec
 
 QnA set for evaluation:
 
-```
+```sh
 {
   "questions": [
     {
